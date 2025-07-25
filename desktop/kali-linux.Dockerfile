@@ -19,9 +19,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Configure LightDM as the display manager
-RUN echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager && \
-    systemctl set-default graphical.target && \
-    systemctl enable lightdm
+RUN echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager
 
 # Set XFCE as the default session manager
 RUN update-alternatives --install /usr/bin/x-session-manager x-session-manager /usr/bin/startxfce4 50 && \

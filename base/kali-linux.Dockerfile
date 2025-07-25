@@ -10,43 +10,36 @@ RUN apt-get update && \
     apt-get install --yes --no-install-recommends --no-install-suggests \
     curl \
     bash \
+    coreutils \
+    findutils \
+    grep \
     htop \
+    iputils-ping \
     jq \
+    less \
     locales \
     man \
+    nano \
+    net-tools \
     pipx \
+    procps \
+    psmisc \
     python3 \
     python3-pip \
+    sed \
     sudo \
-    systemd \
-    systemd-sysv \
+    tar \
+    tree \
     unzip \
+    util-linux \
     vim \
     wget \
+    which \
+    zip \
     ca-certificates \
     rsync \
     git \
     && rm -rf /var/lib/apt/lists/*
-
-# Add the Docker GPG key and repository
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-RUN chmod a+r /etc/apt/keyrings/docker.asc
-
-RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian bookworm stable" > /etc/apt/sources.list.d/docker.list
-
-# Install Docker
-RUN apt-get update && \
-    apt-get install --yes --no-install-recommends --no-install-suggests \
-    build-essential \
-    containerd.io \
-    docker-ce \
-    docker-ce-cli \
-    docker-buildx-plugin \
-    docker-compose-plugin \
-    && rm -rf /var/lib/apt/lists/*
-    
-# Enables Docker starting with systemd
-RUN systemctl enable docker
 
 # Generate the desired locale (en_US.UTF-8)
 RUN sed -i 's/^# *\(en_US.UTF-8 UTF-8\)/\1/' /etc/locale.gen && \
@@ -62,9 +55,9 @@ ENV LC_ALL=en_US.UTF-8
 RUN useradd n3m3s1s \
     --create-home \
     --shell=/bin/bash \
-    --groups=docker \
     --uid=1000 \
     --user-group && \
+    echo "n3m3s1s:n3m3s1s" | chpasswd && \
     echo "n3m3s1s ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
 
 USER n3m3s1s
