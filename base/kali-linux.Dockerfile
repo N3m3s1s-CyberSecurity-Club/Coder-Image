@@ -49,7 +49,9 @@ RUN apt-get update && \
 RUN systemctl enable docker
 
 # Generate the desired locale (en_US.UTF-8)
-RUN locale-gen en_US.UTF-8
+RUN sed -i 's/^# *\(en_US.UTF-8 UTF-8\)/\1/' /etc/locale.gen && \
+    locale-gen && \
+    update-locale LANG=en_US.UTF-8
 
 # Make typing unicode characters in the terminal work.
 ENV LANG=en_US.UTF-8
