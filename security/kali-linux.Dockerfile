@@ -12,7 +12,12 @@ RUN apt-get update && \
     gdb-multiarch \
     gdbserver \
     ghidra \
-    radare2 && \
+    radare2 \
+    nmap \
+    sqlmap \
+    dirsearch \
+    gobuster \
+    wireshark && \
     rm -rf /var/lib/apt/lists/*
 
 USER n3m3s1s
