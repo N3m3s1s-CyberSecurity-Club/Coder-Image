@@ -38,8 +38,8 @@ RUN apt-get update && \
     zip \
     ca-certificates \
     rsync \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+    git && \
+    rm -rf /var/lib/apt/lists/*
 
 # Generate the desired locale (en_US.UTF-8)
 RUN sed -i 's/^# *\(en_US.UTF-8 UTF-8\)/\1/' /etc/locale.gen && \

@@ -12,7 +12,7 @@ RUN apt-get update && \
     gdb-multiarch \
     gdbserver \
     ghidra \
-    radare2 \
-    && rm -rf /var/lib/apt/lists/*
+    radare2 && \
+    rm -rf /var/lib/apt/lists/*
 
 USER n3m3s1s
