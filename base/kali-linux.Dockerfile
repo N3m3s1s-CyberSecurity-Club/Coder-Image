@@ -69,3 +69,5 @@ RUN useradd n3m3s1s \
 
 USER n3m3s1s
 RUN pipx ensurepath
+
+ENV PATH="/home/n3m3s1s/.local/bin:$PATH"
