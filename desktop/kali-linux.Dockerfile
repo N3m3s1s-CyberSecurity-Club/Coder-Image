@@ -1,21 +1,22 @@
-FROM ghcr.io/n3m3s1s-cybersecurity-club/coder-image:base
+FROM ghcr.io/n3m3s1s-cybersecurity-club/coder-image:base-kali-linux
 
+# Configure build environment
 USER root
-
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install Kali Linux XFCE Desktop Environment
 RUN apt-get update && \
     apt-get install -y --no-install-recommends --no-install-suggests \
-    kali-desktop-xfce \
-    lightdm \
-    dbus-x11 \
-    libdatetime-perl \
-    openssl \
-    ssl-cert \
-    xfce4 \
-    xfce4-goodies && \
+        kali-desktop-xfce \
+        lightdm \
+        dbus-x11 \
+        libdatetime-perl \
+        openssl \
+        ssl-cert \
+        xfce4 \
+        xfce4-goodies && \
+    rm /run/reboot-required* || true && \
     rm -rf /var/lib/apt/lists/*
 
 # Configure LightDM as the display manager
@@ -25,8 +26,10 @@ RUN echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager
 RUN update-alternatives --install /usr/bin/x-session-manager x-session-manager /usr/bin/startxfce4 50 && \
     update-alternatives --set x-session-manager /usr/bin/startxfce4
 
-# Configure environment variables for Kali Linux XFCE
+# Configure desktop environment for user
 ARG USER=n3m3s1s
+
+# Configure environment variables for Kali Linux XFCE
 RUN echo 'LANG=en_US.UTF-8' >> /etc/default/locale && \
     echo 'export XDG_CURRENT_DESKTOP=XFCE' > /home/$USER/.xsessionrc && \
     echo 'export XDG_SESSION_TYPE=x11' >> /home/$USER/.xsessionrc && \

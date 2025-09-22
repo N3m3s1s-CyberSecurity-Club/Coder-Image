@@ -24,7 +24,8 @@ ARG USER=n3m3s1s
 RUN echo 'LANG=en_US.UTF-8' >> /etc/default/locale && \
     echo 'export GNOME_SHELL_SESSION_MODE=ubuntu' > /home/$USER/.xsessionrc && \
     echo 'export XDG_CURRENT_DESKTOP=xfce' >> /home/$USER/.xsessionrc && \
-    echo 'export XDG_SESSION_TYPE=x11' >> /home/$USER/.xsessionrc
+    echo 'export XDG_SESSION_TYPE=x11' >> /home/$USER/.xsessionrc && \
+    echo 'export XDG_SESSION_DESKTOP=xfce' >> /home/$USER/.xsessionrc
 
 # Switch to non-root user
 USER n3m3s1s

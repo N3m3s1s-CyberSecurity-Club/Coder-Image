@@ -9,8 +9,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         bash \
+        apt-transport-https \
         ca-certificates \
+        lsb-release \
         curl \
+        gnupg \
         git \
         htop \
         jq \
@@ -18,6 +21,10 @@ RUN apt-get update && \
         pipx \
         python3 \
         python3-pip \
+        iputils-ping \
+        dnsutils \
+        iproute2 \
+        net-tools \
         sudo && \
     rm -rf /var/lib/apt/lists/*
 
@@ -29,13 +36,11 @@ ENV LANG=en_US.UTF-8 \
 
 # Install Docker
 # Add Docker's official GPG key
-RUN install -m 0755 -d /etc/apt/keyrings && \
-    curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc && \
-    chmod a+r /etc/apt/keyrings/docker.asc
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 # Add Docker repository
-RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-    tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian bookworm stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Install Docker packages
 RUN apt-get update && \
@@ -48,10 +53,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Create user n3m3s1s
-RUN userdel -r ubuntu && \
-    useradd n3m3s1s \
+RUN useradd n3m3s1s \
         --create-home \
         --shell=/bin/bash \
+        --groups=docker \
         --uid=1000 \
         --user-group && \
     echo "n3m3s1s:n3m3s1s" | chpasswd && \

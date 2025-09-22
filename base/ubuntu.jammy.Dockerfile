@@ -9,8 +9,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         bash \
+        apt-transport-https \
         ca-certificates \
+        lsb-release \
         curl \
+        gnupg \
         git \
         htop \
         jq \
@@ -18,6 +21,10 @@ RUN apt-get update && \
         pipx \
         python3 \
         python3-pip \
+        iputils-ping \
+        dnsutils \
+        iproute2 \
+        net-tools \
         sudo && \
     rm -rf /var/lib/apt/lists/*
 
