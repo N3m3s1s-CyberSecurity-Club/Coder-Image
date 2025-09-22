@@ -51,6 +51,7 @@ RUN apt-get update && \
 RUN useradd n3m3s1s \
         --create-home \
         --shell=/bin/bash \
+        --groups=docker \
         --uid=1000 \
         --user-group && \
     echo "n3m3s1s:n3m3s1s" | chpasswd && \
