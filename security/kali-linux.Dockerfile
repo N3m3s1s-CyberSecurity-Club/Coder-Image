@@ -17,6 +17,8 @@ RUN apt-get update && \
         sqlmap \
         dirsearch \
         gobuster \
+        burpsuite \
+        binwalk \
         wireshark && \
     rm /run/reboot-required* || true && \
     rm -rf /var/lib/apt/lists/*
