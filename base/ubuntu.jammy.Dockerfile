@@ -68,6 +68,10 @@ RUN useradd n3m3s1s \
 USER n3m3s1s
 
 # Install Rust
+ENV CARGO_HOME=/opt/rust/cargo \
+    RUSTUP_HOME=/opt/rust/rustup \
+    PATH=/opt/rust/cargo/bin:$PATH
+
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y
 
 # Ensure pipx is in PATH
