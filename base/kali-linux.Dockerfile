@@ -64,4 +64,9 @@ RUN useradd n3m3s1s \
 
 # Switch to non-root user
 USER n3m3s1s
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y
+
+# Ensure pipx is in PATH
 RUN pipx ensurepath
