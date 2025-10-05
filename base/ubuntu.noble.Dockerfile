@@ -25,6 +25,9 @@ RUN apt-get update && \
         dnsutils \
         iproute2 \
         net-tools \
+        openssh-client \
+        nodejs \
+        npm \
         sudo && \
     rm -rf /var/lib/apt/lists/*
 
