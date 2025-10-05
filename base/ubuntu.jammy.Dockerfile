@@ -65,13 +65,11 @@ RUN useradd n3m3s1s \
     echo "n3m3s1s:n3m3s1s" | chpasswd && \
     echo "n3m3s1s ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
 
-# Install Rust
-ENV CARGO_HOME=/usr/local/cargo \
-    RUSTUP_HOME=/usr/local/rustup \
-    PATH=/usr/local/cargo/bin:$PATH
-
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path && \
-    chmod -R a+rwx /usr/local/cargo /usr/local/rustup
+# Clean up apt cache and temporary files
+RUN apt-get clean && \
+    apt-get autoclean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/* /var/tmp/*
 
 # Switch to non-root user
 USER n3m3s1s
