@@ -26,8 +26,6 @@ RUN apt-get update && \
         iproute2 \
         net-tools \
         openssh-client \
-        nodejs \
-        npm \
         sudo && \
     rm -rf /var/lib/apt/lists/*
 
