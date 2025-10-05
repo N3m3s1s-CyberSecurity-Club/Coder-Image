@@ -62,15 +62,16 @@ RUN useradd n3m3s1s \
     echo "n3m3s1s:n3m3s1s" | chpasswd && \
     echo "n3m3s1s ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
 
+# Install Rust
+ENV CARGO_HOME=/usr/local/cargo \
+    RUSTUP_HOME=/usr/local/rustup \
+    PATH=/usr/local/cargo/bin:$PATH
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path && \
+    chmod -R a+rwx /usr/local/cargo /usr/local/rustup
+
 # Switch to non-root user
 USER n3m3s1s
-
-# Install Rust
-ENV CARGO_HOME=/opt/rust/cargo \
-    RUSTUP_HOME=/opt/rust/rustup \
-    PATH=/opt/rust/cargo/bin:$PATH
-
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y
 
 # Ensure pipx is in PATH
 RUN pipx ensurepath
