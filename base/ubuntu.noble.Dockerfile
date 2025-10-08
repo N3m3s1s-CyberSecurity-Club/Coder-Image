@@ -15,6 +15,8 @@ RUN apt-get update && \
         curl \
         gnupg \
         git \
+        gcc \
+        wget \
         htop \
         jq \
         locales \
@@ -73,6 +75,15 @@ ENV CARGO_HOME=/usr/local/cargo \
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path && \
     chmod -R a+rwx /usr/local/cargo /usr/local/rustup
+
+# Install Go
+ENV GO_VERSION=1.25.2
+RUN wget -P /tmp "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" && \
+    tar -C /usr/local -xzf /tmp/go${GO_VERSION}.linux-amd64.tar.gz && \
+    rm /tmp/go${GO_VERSION}.linux-amd64.tar.gz
+
+ENV GO_HOME=/usr/local/go \
+    PATH=/usr/local/go/bin:$PATH
 
 # Clean up apt cache and temporary files
 RUN apt-get clean && \
