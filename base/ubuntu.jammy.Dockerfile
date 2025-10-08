@@ -15,6 +15,8 @@ RUN apt-get update && \
         curl \
         gnupg \
         git \
+        gcc \
+        wget \
         htop \
         jq \
         locales \
